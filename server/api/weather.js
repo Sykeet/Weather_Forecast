@@ -17,14 +17,79 @@ const WeatherForecast = mongoose.model('WeatherForecast', weatherForecastSchema)
 // Definiera API-endpoints
 export default function (server, mongoose) {
   // GET /api/weather-forecasts
-  server.get('/api/weather-forecasts', async (req, res) => {
-    try {
-      const weatherForecasts = await WeatherForecast.find();
-      res.json(weatherForecasts);
-    } catch (error) {
-      res.status(500).json({ message: 'Error fetching weather forecasts.' });
+server.get('/api/weather-forecasts', async (req, res) => {
+  try {
+    let query = {};
+    
+    // Filtering by location (string match)
+    if (req.query.location) {
+      query.location = req.query.location;
     }
-  });
+
+    // Filtering by date (specific day)
+    if (req.query.date) {
+      const date = new Date(req.query.date);
+      date.setHours(0, 0, 0, 0);
+      const nextDay = new Date(date);
+      nextDay.setDate(date.getDate() + 1);
+      query.date = {
+        $gte: date,
+        $lt: nextDay
+      };
+    }
+
+    // Filtering by temperature range
+    if (req.query.minTemperature || req.query.maxTemperature) {
+      query.temperature = {};
+      if (req.query.minTemperature) {
+        query.temperature.$gte = Number(req.query.minTemperature);
+      }
+      if (req.query.maxTemperature) {
+        query.temperature.$lte = Number(req.query.maxTemperature);
+      }
+    }
+
+    // Filtering by humidity range
+    if (req.query.minHumidity || req.query.maxHumidity) {
+      query.humidity = {};
+      if (req.query.minHumidity) {
+        query.humidity.$gte = Number(req.query.minHumidity);
+      }
+      if (req.query.maxHumidity) {
+        query.humidity.$lte = Number(req.query.maxHumidity);
+      }
+    }
+
+    // Filtering by wind speed range
+    if (req.query.minWindSpeed || req.query.maxWindSpeed) {
+      query.windSpeed = {};
+      if (req.query.minWindSpeed) {
+        query.windSpeed.$gte = Number(req.query.minWindSpeed);
+      }
+      if (req.query.maxWindSpeed) {
+        query.windSpeed.$lte = Number(req.query.maxWindSpeed);
+      }
+    }
+
+    // Filtering by precipitation range
+    if (req.query.minPrecipitation || req.query.maxPrecipitation) {
+      query.precipitation = {};
+      if (req.query.minPrecipitation) {
+        query.precipitation.$gte = Number(req.query.minPrecipitation);
+      }
+      if (req.query.maxPrecipitation) {
+        query.precipitation.$lte = Number(req.query.maxPrecipitation);
+      }
+    }
+
+    // Execute the query with all the filters applied
+    const weatherForecasts = await WeatherForecast.find(query);
+    res.json(weatherForecasts);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching weather forecasts.' });
+  }
+});
+
 
   // GET /api/weather-forecasts/:id
   server.get('/api/weather-forecasts/:id', async (req, res) => {

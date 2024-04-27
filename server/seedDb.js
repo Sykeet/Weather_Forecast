@@ -10,17 +10,15 @@ console.log("Start seeding databse!")
 async function seedDB() {
   try {
     mongoose.connect("mongodb+srv://kalle:kalle12345@cluster0.ql5uged.mongodb.net/")
-    const list = await createLocation(3)
-    console.log("UsersList - ", list)
-    const list2 = await createWeather(3)
-    console.log("UsersList - ", list2)
+    const list = await createLocation(20)
+    console.log("LocationList - ", list)
+    const list2 = await createWeather(20)
+    console.log("LocationList - ", list2)
   } catch (error) {
     console.log(`Errormessage: ${error}`)
   }
   
 }
-
-
 
 async function createLocation(amount) {
   const locationList = []
@@ -49,11 +47,11 @@ async function createWeather(amount) {
   for (let i = 0; i < amount; i++) {
     const weatherForecast = new WeatherForecast({
       date: faker.date.future(),
-      temperature: `${faker.number.int({ min: -10, max: 30 })}°C`,
-      humidity: `${faker.number.int({ min: 0, max: 100 })}%`,
-      windSpeed: `${faker.number.int({ min: 0, max: 100 })} m/s`,
-      precipitation: `${faker.number.int({ min: 0, max: 100 })} mm`,
-      location: idList[i]
+      temperature: faker.number.int({ min: -10, max: 30 }),
+      humidity: faker.number.int({ min: 0, max: 100 }),
+      windSpeed: faker.number.int({ min: 0, max: 100 }),
+      precipitation: faker.number.int({ min: 0, max: 100 }),
+      location: idList[i],
     })
     await weatherForecast.save()
     forecastList.push(weatherForecast)
