@@ -1,15 +1,15 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const weatherForecastSchema = new mongoose.Schema({
   date: { type: Date, required: true }, // Datum och tid för prognosen
-  temperature: { type: Number, required: true }, // Temperatur
-  humidity: { type: Number, required: true }, // Luftfuktighet
-  windSpeed: { type: Number, required: true }, // Vindhastighet
-  precipitation: { type: Number, required: true }, // Nederbördsmängd
-  location: { type: mongoose.Schema.Types.ObjectId, ref: 'Location' }, // Platsens namn
+  temperature: { type: String, required: true }, // Temperatur inklusive "C" för Celsius
+  humidity: { type: String, required: true }, // Luftfuktighet inklusive "%" för procent
+  windSpeed: { type: String, required: true }, // Vindhastighet inklusive "m/s" för meter per sekund
+  precipitation: { type: String, required: true }, // Nederbördsmängd inklusive "mm" för millimeter
+  location: { type: mongoose.Schema.Types.ObjectId, ref: 'Location' }, // Referens till platsen
 });
 
-// Skapa modell för väderprognosen
+// Skapa modellen för väderprognosen
 const WeatherForecast = mongoose.model('WeatherForecast', weatherForecastSchema);
 
 export default WeatherForecast;

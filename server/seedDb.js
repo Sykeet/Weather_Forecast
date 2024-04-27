@@ -49,11 +49,11 @@ async function createWeather(amount) {
   for (let i = 0; i < amount; i++) {
     const weatherForecast = new WeatherForecast({
       date: faker.date.future(),
-      temperature: faker.number.int({ min: -10, max: 30 }),
-      humidity: faker.number.int({ min: 0, max: 100 }),
-      windSpeed: faker.number.int({ min: 0, max: 100 }),
-      precipitation: faker.number.int({ min: 0, max: 100 }),
-      location: idList[i],
+      temperature: `${faker.number.int({ min: -10, max: 30 })}°C`,
+      humidity: `${faker.number.int({ min: 0, max: 100 })}%`,
+      windSpeed: `${faker.number.int({ min: 0, max: 100 })} m/s`,
+      precipitation: `${faker.number.int({ min: 0, max: 100 })} mm`,
+      location: idList[i]
     })
     await weatherForecast.save()
     forecastList.push(weatherForecast)
