@@ -1,9 +1,9 @@
-import { ListCollectionsCursor } from "mongodb";
-
 export default function (server, mongoose) {
+  let connected = true
 
   // Skapar ett schema för "locations", vilket definierar strukturen för varje "location"-dokument i databasen.
   const locationsSchema = new mongoose.Schema({
+    country: String,
     city: String,  // Varje "location" kommer att ha en stad.
     timezone: String // Tidszon för platsen.
   });
@@ -20,12 +20,31 @@ export default function (server, mongoose) {
   */
   server.get('/api/locations', async (req, res) => {
     try {
+      if (req.query.disconnect === 'true') { // if query request for disconnect=true our database will stop being connected.
+        if (connected) {
+          await mongoose.disconnect();
+          connected = false;
+          console.log("Database connection now offline.");
+        }
+      } else {
+        if (!connected) { //reconnect if not connected
+          await mongoose.connect("mongodb+srv://kalle:kalle12345@cluster0.ql5uged.mongodb.net/");
+          connected = true;
+          console.log("Database connection back online.");
+        }
+      }
+
       let query = {};
       if (req.query.city) {
         query.city = new RegExp('^' + req.query.city + '$', 'i');
       }
 
       const locations = await Location.find(query);
+      if (locations.length === 0 && req.query.city) {
+        return res.status(404).json({ message: "Staden hittades inte." });
+      }
+
+
       res.json(locations);
     } catch (error) {
       res.status(500).json({ message: "Ett fel uppstod på servern vid hämtning av platser." });
@@ -60,7 +79,7 @@ export default function (server, mongoose) {
   // Skapar en PUT-route för att uppdatera en plats med ett specifikt ID.
   server.put('/api/locations/:id', async (req, res) => {
     try {
-      const updatedLocation = await Location.findByIdAndUpdate(req.params.id, req.body); // Returnerar den uppdaterade platsen.
+      const updatedLocation = await Location.findByIdAndUpdate(req.params.id, req.body,{ new: true }); // Returnerar den uppdaterade platsen.
       if (!updatedLocation) {
         return res.status(404).json({ message: "Platsen hittades inte" });
       }

@@ -2,13 +2,23 @@
 import express from "express"
 import mongoose from "mongoose"
 import apiRegister from "./api-register.js"
-
+import { rateLimit } from 'express-rate-limit'
 
 // Skapar en instans av Express-appen, detta är vår webbserver.
 const server = express()
 
 // Bestämmer vilken port som servern ska lyssna på.
 const port = 3000
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  limit: 2, // Limit each IP to 100 requests per `window` (here, per 15 minutes).
+  standardHeaders: 'draft-7', // draft-6: `RateLimit-*` headers; draft-7: combined `RateLimit` header
+  legacyHeaders: false, // Disable the `X-RateLimit-*` headers.
+  // store: ... , // Redis, Memcached, etc. See below.
+})
+
+// Apply the rate limiting middleware to all requests.
+server.use(limiter)
 
 /*
   Servern använder en middleware ( express.json() ) för att omvandla våra request till JSON.

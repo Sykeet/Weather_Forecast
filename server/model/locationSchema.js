@@ -6,8 +6,6 @@ const locationsSchema = new mongoose.Schema({
   timezone: String // Tidszon för platsen.
 });
 
-locationsSchema.plugin(mongoosePaginate);
-
 /* 
   Skapar en Mongoose-modell baserat på locationsSchema.
   Detta möjliggör för oss att skapa, läsa, uppdatera och radera (CRUD) dokument i vår "locations"-samling (collection).

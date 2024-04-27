@@ -10,9 +10,9 @@ console.log("Start seeding databse!")
 async function seedDB() {
   try {
     mongoose.connect("mongodb+srv://kalle:kalle12345@cluster0.ql5uged.mongodb.net/")
-    const list = await createLocation(20)
+    const list = await createLocation(200)
     console.log("LocationList - ", list)
-    const list2 = await createWeather(20)
+    const list2 = await createWeather(200)
     console.log("LocationList - ", list2)
   } catch (error) {
     console.log(`Errormessage: ${error}`)
