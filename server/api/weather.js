@@ -1,5 +1,6 @@
 // Importera nödvändiga moduler och modeller
 import mongoose from 'mongoose';
+import mongoosePaginate from 'mongoose-paginate-v2';
 
 // Skapa schema för väderprognosen (Weather Forecast)
 const weatherForecastSchema = new mongoose.Schema({
@@ -10,6 +11,8 @@ const weatherForecastSchema = new mongoose.Schema({
   windSpeed: { type: Number, required: true }, // Vindhastighet
   precipitation: { type: Number, required: true } // Nederbördsmängd
 });
+
+weatherForecastSchema.plugin(mongoosePaginate);
 
 // Skapa modell för väderprognosen
 const WeatherForecast = mongoose.model('WeatherForecast', weatherForecastSchema);
@@ -80,10 +83,16 @@ server.get('/api/weather-forecasts', async (req, res) => {
       if (req.query.maxPrecipitation) {
         query.precipitation.$lte = Number(req.query.maxPrecipitation);
       }
-    }
+    };
+
+    const page = parseInt(req.query.page) || 1
+    const limit = parseInt(req.query.limit) || 10
+
+    // Fetch events based on query and pagination options
+    const weatherForecasts = await WeatherForecast.paginate(query, { page: page, limit: limit });
 
     // Execute the query with all the filters applied
-    const weatherForecasts = await WeatherForecast.find(query);
+    // const weatherForecasts = await WeatherForecast.find(query);
     res.json(weatherForecasts);
   } catch (error) {
     res.status(500).json({ message: 'Error fetching weather forecasts.' });

@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import mongoosePaginate from 'mongoose-paginate-v2';
 
 const weatherForecastSchema = new mongoose.Schema({
   date: { type: Date, required: true }, // Datum och tid för prognosen
@@ -8,6 +9,8 @@ const weatherForecastSchema = new mongoose.Schema({
   precipitation: { type: Number, required: true }, // Nederbördsmängd
   location: { type: mongoose.Schema.Types.ObjectId, ref: 'Location' }, // Platsens namn
 });
+
+weatherForecastSchema.plugin(mongoosePaginate);
 
 // Skapa modellen för väderprognosen
 const WeatherForecast = mongoose.model('WeatherForecast', weatherForecastSchema);

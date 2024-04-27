@@ -20,7 +20,13 @@ export default function (server, mongoose) {
   */
   server.get('/api/locations', async (req, res) => {
     try {
-      res.json(await Location.find());  // Använder Mongoose's "find"-metod för att hämta alla "locations".
+      let query = {};
+      if (req.query.city) {
+        query.city = new RegExp('^' + req.query.city + '$', 'i');
+      }
+
+      const locations = await Location.find(query);
+      res.json(locations);
     } catch (error) {
       res.status(500).json({ message: "Ett fel uppstod på servern vid hämtning av platser." });
     }
