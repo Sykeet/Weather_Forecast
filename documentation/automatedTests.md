@@ -8,8 +8,8 @@ Verify that the API returns a 200 OK status code for a successful GET request.
 
 #### Steps:
 
-1. Send a GET request to the weather forecast endpoint with specific filters.
-2. Example: `GET http://localhost:3000/api/weather-forecasts?minTemperature=20&maxTemperature=25`
+- Send a GET request to the weather forecast endpoint with specific filters.
+- Example: `GET http://localhost:3000/api/weather-forecasts?minTemperature=20&maxTemperature=25`
 
 - **Test Script**:
 ```javascript
@@ -42,8 +42,8 @@ Ensure that the API returns the correct data structure in the response body.
 
 #### Steps:
 
-1. Send a GET request to retrieve all weather forecasts.
-2. Example: `GET localhost:3000/api/weather-forecasts`
+- Send a GET request to retrieve all weather forecasts.
+- Example: `GET localhost:3000/api/weather-forecasts`
 
 - **Test Script**:
 ```javascript
