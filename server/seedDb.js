@@ -36,9 +36,7 @@ async function createLocation(amount) {
         console.error(err);
       });
     locationList.push(location)
-    // console.log(`New user - ${newUser.username} - has been created.`)
   }
-  // console.log(`${amount} users has been seeded.`)
   return locationList
 }
 
@@ -55,9 +53,7 @@ async function createWeather(amount) {
     })
     await weatherForecast.save()
     forecastList.push(weatherForecast)
-    // console.log(`New user - ${newUser.username} - has been created.`)
   }
-  // console.log(`${amount} users has been seeded.`)
   return forecastList
 }
 
