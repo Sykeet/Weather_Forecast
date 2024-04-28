@@ -2,7 +2,7 @@
 
 #### This documentation covers the automated tests for the Weather Forecast API.
 
-## 1. Status Code 200 Verify that the API returns the correct HTTP status code (e.g., 200 OK) for a successful GET request.
+## 1. Validate that the API returns the correct HTTP status code (e.g., 200 OK) for a successful GET request.
 
 Verify that the API returns a 200 OK status code for a successful GET request.
 
@@ -254,7 +254,7 @@ This test confirms that the API provides a paginated response when a large numbe
 - Example: `GET localhost:3000/api/weather-forecasts?page=1&limit=5`
 
 #### Purpose:
-Check that the API returns only a specified number of forecasts per page, which is crucial for handling large datasets.
+Check that the API returns only a specified number of forecasts per page, which is good when handling large datasets.
 
 ### Test Script:
   ```javascript
@@ -283,7 +283,8 @@ Weather Forecast > Automated tests > 5. Pagination
 **Purpose**  
 To validate that the API correctly implements pagination in the response.
 
-Certainly! Here is the formatted documentation for your API test on handling special characters and non-English text:
+---
+---
 
 ## 6. Test if the API handles special characters and non-English text correctly in input data and returned responses using an automated testing tool.
 
@@ -319,8 +320,6 @@ Weather Forecast > Automated tests > 6. Test of special characters
 **Purpose**  
 To confirm that the API is capable of handling requests with special characters and non-English text without data loss or corruption.
 
-Certainly! Here's the detailed documentation for test case number 7 with 50 iterations for the entire collection:
-
 ---
 ---
 
@@ -330,7 +329,7 @@ This test evaluates the API's ability to efficiently handle a high volume of con
 
 #### Steps:
 - Perform a series of GET requests across the API to simulate multiple users.
-- The entire collection of tests is executed with 50 iterations to stress-test the system.
+- The entire collection of tests is executed with 5 iterations to stress-test the system.
 
 #### Purpose:
 Assess the API's reliability and data consistency under concurrent usage and heavy load.
@@ -471,17 +470,10 @@ Weather Forecast > Automated tests > 9. Check Update is Working
 **Purpose**  
 To ensure the API's update operation functions correctly, reflecting changes immediately and consistently.
 
-**Note**  
-Remember to replace key names and values with those that correspond to what you are searching for. 
-
 ---
 ---
 
 ## 10. Design an automated performance test that simulates a large number of users making requests simultaneously to check the API’s performance under heavy load.
-
-Certainly, let's focus on creating the documentation for test number 10 based on the provided images.
-
-## 10. Design an Automated Performance Test
 
 This test verifies the API's ability to handle a high volume of simultaneous requests, simulating multiple users to test the performance and stability of the system under heavy load conditions.
 
@@ -525,7 +517,6 @@ To ensure that the API can sustain high levels of traffic, when it's getting acc
 ---
 
 ## 11. Create an automated test that verifies the API can recover gracefully from failures, such as database connection issues or third-party service outages, without compromising data integrity.
-
 
 This automated test checks the API's ability to recover from a failure, such as a database disconnection, and ensures that no data integrity is compromised.
 
