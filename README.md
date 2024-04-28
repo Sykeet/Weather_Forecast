@@ -91,14 +91,6 @@ nodemon server.js
 
 This will launch the API on `http://localhost:3000`.
 
-
-
-
-
-
-
-## Using Faker
-
 ## Mock Data Generation
 
 For this project, i have utilized the faker library to generate mock data for my database, ensuring that i have a rich dataset to work with for testing and development purposes.
