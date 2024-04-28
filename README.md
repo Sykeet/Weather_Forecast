@@ -89,7 +89,7 @@ Start the API server with:
 nodemon server.js
 ```
 
-This will launch the API on `http://localhost:3000`.
+This will launch the API on `localhost:3000`.
 
 ## Mock Data Generation
 
