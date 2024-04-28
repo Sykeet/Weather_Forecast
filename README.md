@@ -47,7 +47,7 @@ Installs Nodemon globally, which will auto-restart the server after changes.
 
 Use the provided Postman collection and environment to test the API's endpoints.
 
-**Test collection:** [Weather Forecast API Testing](https://postman.com/collections/123456)
+**Test collection:** [Weather Forecast API Testing](https://elements.getpostman.com/redirect?entityId=33841337-ce046e7d-26e0-4616-bc2d-26dc08aaa23e&entityType=collection)
 
 
 ## API Endpoints
